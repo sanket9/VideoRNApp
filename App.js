@@ -1,18 +1,8 @@
 import React, { Component } from 'react'
-// import { AppRegistry, StyleSheet, Text, TouchableOpacity, View,
-//    PermissionsAndroid, ActivityIndicator, ToastAndroid,TextInput } from 'react-native';
-// import Modal from "react-native-modal";
-
-// import { RNCamera } from 'react-native-camera';
-// var RNFS = require('react-native-fs');
-// import RNFetchBlob from 'react-native-fetch-blob'
-// // const dirs = RNFetchBlob.fs.dirs
-// import Video from 'react-native-video';
-// import ImagePicker from 'react-native-image-picker';
-
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import Camera from './src/pages/camera'
+import List from './src/pages/listConect'
 
 export default class App extends Component {
   constructor() {
@@ -21,8 +11,22 @@ export default class App extends Component {
   }
   
   render() {
+    const Stack = createStackNavigator();
+
     return (
-      <Camera/>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="List">
+          <Stack.Screen name="Camera" component={Camera} 
+            options= {{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen name="List" component={List} 
+           options= {{
+            headerShown: false
+          }}/>
+        </Stack.Navigator>
+      </NavigationContainer>
     )
   }
 }

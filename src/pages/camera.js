@@ -10,7 +10,8 @@ import Video from 'react-native-video';
 import ImagePicker from 'react-native-image-picker';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {Gallery, Flip, ScriptIcon, Record, StopRecording, RecordingDone, VideoIcon, Reshoot, Play}  from "../component/svg";
 
 
@@ -26,8 +27,12 @@ export default class camera extends Component {
       showScriptModal: false,
       scripttext: '',
       headermodal : false,
-      headerText: 'Introduction Video',
+      headerText: '',
+      params: null,
+
     }
+    
+    
   }
   async requestCameraPermission() {
     try {
@@ -123,7 +128,9 @@ export default class camera extends Component {
   }
 
   async moveFiletoExtarnal(url) {
-    let resstatus = await this.requestCameraPermission()
+    let resstatus = await this.requestCameraPermission();
+    let value = await AsyncStorage.getItem('@local_indx');
+    value = parseInt(value);
     if (resstatus) {
       
       const split = url.split('/');
@@ -131,15 +138,18 @@ export default class camera extends Component {
       const inbox = split.pop();
       const realPath = `${RNFS.TemporaryDirectoryPath}/${inbox}/${name}`;
       // console.log(RNFS.ExternalDirectoryPath);
-      RNFS.exists(`/storage/emulated/0/VideoApp`).then((isExist)=>{
+      RNFS.exists(`/storage/emulated/0/VideoApp`).then( async (isExist)=>{
         if(isExist){
           RNFS.moveFile(realPath,`/storage/emulated/0/VideoApp/${(Date.now() / 1000)}.mp4`);
           ToastAndroid.show('File Saved.', ToastAndroid.SHORT);
-
+          await AsyncStorage.setItem('@local_indx', (value+1).toString());
+          this.props.navigation.navigate('List')
         }else{
-          RNFS.mkdir(`/storage/emulated/0/VideoApp`,).then((data)=>{
+          RNFS.mkdir(`/storage/emulated/0/VideoApp`,).then(async (data)=>{
             RNFS.moveFile(realPath,`/storage/emulated/0/VideoApp/${(Date.now() / 1000)}.mp4`);
             ToastAndroid.show('File Saved.', ToastAndroid.SHORT);
+            await AsyncStorage.setItem('@local_indx', (value+1).toString())
+            this.props.navigation.navigate('List')
           })
         }
       })
@@ -158,7 +168,26 @@ export default class camera extends Component {
       stopRecording: false,
     })
   }
+
+  componentDidMount() {
+    const { route } = this.props;
+    let data = JSON.parse(route.params.data)
+
+    if (data.id <= 9) {
+        this.setState({
+            headerText: data.title,
+            scripttext: data.scriptText
+        })
+    }else if (data.id > 9) {
+        this.setState({
+            headermodal : true,
+            scripttext: data.scriptText
+        })
+    }
+  }
   render() {
+    
+    
     return (
       <View style={styles.container}>
         <View style={styles.firstcontainer}>
@@ -178,7 +207,7 @@ export default class camera extends Component {
                 ref={(ref) => {
                   this.player = ref
                 }}   
-                controls={true} 
+                controls={false} 
                 paused={false}                                  
                 style={styles.preview} />
                 :   <ActivityIndicator size="small" color="#3280dc" />
@@ -276,7 +305,7 @@ export default class camera extends Component {
                       <Text style={{ fontSize: 12, color:'#f8e71c', fontFamily: "Poppins-Regular", fontSize: 12 }}> Add Script </Text>
                     </TouchableOpacity> : 
                     <View style={{flexDirection: 'column', width: '85%', backgroundColor: '#23232399', padding: 15 ,
-                    borderWidth: 0, borderRadius: 8 ,position: 'absolute', bottom: 90,
+                    borderWidth: 0, borderRadius: 8 ,position: 'absolute', bottom: 110,
                      overflow: 'scroll'}}>
                       <Text style={{ fontSize: 12, color:'#f8e71c', fontFamily:'Poppins-Bold', marginBottom: 5, fontSize: 12, }}>Script</Text>
                       <Text style={{ fontSize: 12, color:'#fff', fontFamily: "Poppins-Regular", fontSize: 12,}}>{this.state.scripttext}</Text>
