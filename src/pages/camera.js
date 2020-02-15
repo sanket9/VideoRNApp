@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View,
-   PermissionsAndroid, ActivityIndicator, ToastAndroid,TextInput } from 'react-native';
+   PermissionsAndroid, ActivityIndicator, ToastAndroid,TextInput, Dimensions  } from 'react-native';
 
 import { RNCamera } from 'react-native-camera';
 var RNFS = require('react-native-fs');
@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {Gallery, Flip, ScriptIcon, Record, StopRecording, RecordingDone, VideoIcon, Reshoot, Play}  from "../component/svg";
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
 
 
 export default class camera extends Component {
@@ -191,9 +193,9 @@ export default class camera extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.firstcontainer}>
-          <TouchableOpacity><Text style={{color:'#fff', fontFamily: "Poppins-Regular", fontSize: 13}}>Save</Text></TouchableOpacity>
           <Text style={{color:'#fff', fontFamily: "Poppins-Regular",fontSize: 10}}>1/15</Text>
-          <TouchableOpacity><Text style={{color:'#fff', fontFamily: "Poppins-Regular",fontSize: 13}}>Preview</Text></TouchableOpacity>
+          {/* <TouchableOpacity><Text style={{color:'#fff', fontFamily: "Poppins-Regular",fontSize: 13}}>Preview</Text></TouchableOpacity> */}
+          <TouchableOpacity><Text style={{color:'#fff', fontFamily: "Poppins-Regular", fontSize: 13}}>Save</Text></TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.textcontainer} onPress={() => this.setState({headermodal : true})}>
           <Text style={styles.headerText}>{this.state.headerText}</Text>
@@ -279,11 +281,7 @@ export default class camera extends Component {
               }
               {this.state.recording ? 
                
-                  <TouchableOpacity onPress={() => this.stopRecording()} style={[styles.capture, {
-                        padding: 10,
-                        borderWidth: 4,
-                        borderColor: '#ff2650',
-                  }]}>
+                  <TouchableOpacity onPress={() => this.stopRecording()} style={[styles.capture]}>
                     {/* <Text style={{ fontSize: 14 }}> Stop </Text> */}
                     {/* <Icon name="stop" size={40} color='red'/> */}
                     <View><StopRecording /></View>
@@ -391,10 +389,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   firstcontainer: {
-    flexDirection: 'row', justifyContent:'space-between', margin: 15, paddingVertical: 10
+    flexDirection: 'row', justifyContent:'space-between', margin: 15, paddingVertical: 10,
+    marginBottom: 0
   },
   textcontainer: {
-    margin: 15, paddingVertical: 10,  fontFamily: "Poppins-Regular", 
+    marginLeft: 8, paddingVertical: 10,  fontFamily: "Poppins-Regular", 
   },
   bottomcontainer: {
     flex: 0, flexDirection: 'row', justifyContent: 'center', 
@@ -403,7 +402,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: '5%',
+    marginTop: '6%',
     overflow: 'hidden',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15
@@ -443,10 +442,10 @@ const styles = StyleSheet.create({
     bottom: 95,
   },
   rightbutton : {
-    flexDirection: 'column', position: 'absolute', bottom: 20, right: '20%'
+    flexDirection: 'column', position: 'absolute', bottom: 35, right: '20%'
   },
   leftbutton : {
-    flexDirection: 'column', position: 'absolute', bottom: 20, left: '20%'
+    flexDirection: 'column', position: 'absolute', bottom: 35, left: '20%'
   },
   buttontext: {
     fontFamily: "Poppins-Bold",
@@ -458,22 +457,22 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 0, 
-            backgroundColor: '#fff', 
-            borderRadius: 15, padding: 20
+    backgroundColor: '#fff', 
+    borderRadius: 15, padding: 20
   },
   questionmodal: {
-    fontFamily: "Poppins-Regular",
-    flex: 1, marginTop: '20%', backgroundColor: '#000', width: '120%', marginLeft: -20, padding: 30, marginBottom: -50
+    height: '110%', width: '120%', marginLeft: '-5%', 
+    fontFamily: "Poppins-Regular", backgroundColor: '#fff'
   },
   questionmodalbtn : {
     flexDirection: 'row', padding: 3, borderRadius: 8, justifyContent: 'center', alignItems: 'center',
-                  width:'80%', backgroundColor: '#3280dc', height:48, 
+    width:'80%', backgroundColor: '#3280dc', height:48, 
   },
   headerText: {
     fontFamily: "Poppins-Bold", fontSize: 18,
-            fontStyle: "normal",
-            letterSpacing: 0,
-            color: "#ffffff",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#ffffff",
   },
   disabled: {
     opacity: 0.8

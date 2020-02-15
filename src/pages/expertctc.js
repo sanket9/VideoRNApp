@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 var styles = require('../styles/style')
 import Header from '../component/header'
-
+// import footerBtn from "../component/footerBtn";
 
 export default class expertctc extends Component {
     constructor() {
@@ -16,9 +16,13 @@ export default class expertctc extends Component {
 
     renderHeader = () =>{
         return(
-            <Header onPress={() => this.props.navigation.goBack()}/>
+            <Header
+                showback={true}
+                headerText="Become Expert"
+                onPress={() => this.props.navigation.goBack()}/>
         )
     }
+
     render() {
         let disableBtn = this.state.consultationFee == '' ? true: false;
         

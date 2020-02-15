@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, Button, Alert, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import { Text, View, FlatList, Button, Alert, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native'
 import FlatListRow from '../component/FlatListRow'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import FontIcon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
-import { NavigationEvents } from 'react-navigation';
-
+import Header from '../component/header'
+import DashbordHeader from "../component/dashbordheader";
 export default class listConect extends Component {
   constructor() {
     super()
@@ -31,6 +30,20 @@ export default class listConect extends Component {
       curindx: local
     })
   }
+
+  renderHeader = () =>{
+    return(
+        <Header showback={false}
+        headerText="EXPLORE DASHBOARD" onPress={() => this.props.navigation.goBack()}/>
+    )
+  }
+  renderDashbordHeader = () =>{
+    return(
+        <DashbordHeader showback={false}
+        headerText="EXPLORE DASHBOARD"/>
+    )
+  }
+
   render() {
 
     const data = [
@@ -135,75 +148,29 @@ export default class listConect extends Component {
     ]
     return (
       <View style={styles.container}>
-        <View style={{
-          // backgroundColor:'green',
-          flexDirection: 'row'
-        }}>
-          <View style={styles.header}>
-            <View style={styles.brandIconContainer}>
-              <Image
-                style={{ width: 30, height: 30, resizeMode: 'center' }}
-                source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBNzhbjF2YteWJQSypQz4opvBrB-Wot5LTJrVkTN-Gc_ER-F1-' }}
-              />
-            </View>
-          </View>
+        {this.renderHeader()}
+        <ScrollView style={{marginBottom: 20}}>
+          {this.renderDashbordHeader() }
           <View style={{
-            // backgroundColor:'blue',
-            paddingTop: 20,
-            flex: 2,
-            padding: 8
+            marginVertical: 20,
+            paddingLeft: 20
           }}>
+            <Text style={styles.aswtext}>Answered Videos</Text>
             <Text style={{
-              fontFamily: 'Poppins-Bold'
-            }}>Microsoft Corporation</Text>
-            <Text style={{
-              fontFamily: 'Poppins-Regular',
-              fontSize: 13,
-            }}>Head of Design - Technology</Text>
-            <Text style={{
-              color: 'grey'
-            }}>208</Text>
-            <Text style={{
-              marginTop: 10,
-              fontFamily: 'Poppins-Regular',
-              fontSize: 13,
-              color: "#6d727d"
-            }}>Sep 2018 - Present 5 mos</Text>
-            <View style={{
-              flexDirection: 'row',
-              marginVertical: 5,
-              alignItems: 'center'
-            }}>
-              <Icon name="map-marker" size={13} color='rgba(0,0,0,0.5)' style={{
-                marginRight: 10
-              }} />
-              <Text style={{
-                fontFamily: 'Poppins-Regular',
-                fontSize: 12,
-                color: "#9699a1",
-                color: 'rgba(0,0,0,0.6)'
-              }}>California, USA</Text>
-            </View>
+              color: '#ff2650',
+              fontFamily: "Poppins-Regular",
+              fontSize: 11,
+              paddingTop: 4
+            }}>8 More Videos are pending before submitting</Text>
           </View>
-        </View>
-        <View style={{
-          marginVertical: 20,
-          paddingLeft: 20
-        }}>
-          <Text style={styles.aswtext}>Answered Videos</Text>
-          <Text style={{
-            color: '#ff2650',
-            fontFamily: "Poppins-Regular",
-            fontSize: 11,
-            paddingTop: 4
-          }}>8 More Videos are pending before submitting</Text>
-        </View>
 
-        <FlatList
-          data={data}
-          renderItem={({ item }) => <FlatListRow id={item.id} finishTime={item.finishTime} title={item.title} currenti={this.state.curindx} />}
-          keyExtractor={item => item.id.toString()}
-        />
+          <FlatList
+            data={data}
+            renderItem={({ item }) => <FlatListRow id={item.id} finishTime={item.finishTime} title={item.title} currenti={this.state.curindx} />}
+            keyExtractor={item => item.id.toString()}
+          />
+
+        </ScrollView>
         <View style={{
           paddingHorizontal: 20
         }}>
@@ -235,22 +202,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  header: {
-    // backgroundColor:'red',
-    // justifyContent:'center',
-    paddingTop: 35,
-    alignItems: 'center',
-    flex: 1
-  },
-  brandIconContainer: {
-    width: 50,
-    height: 50,
-    borderColor: 'rgba(0,0,0,0.1)',
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5
-  },
+
   aswtext: {
     fontFamily: "Poppins-Regular",
     fontSize: 14,

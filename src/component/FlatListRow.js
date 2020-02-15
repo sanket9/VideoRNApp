@@ -63,9 +63,9 @@ export default class FlatListRow extends Component {
 const styles = StyleSheet.create({
     list:{
         flexDirection:'row',
-        borderBottomColor:'black',
+        borderBottomColor:'#979797',
         borderBottomWidth:StyleSheet.hairlineWidth,
-        paddingHorizontal:15,
+        paddingHorizontal:20,
         paddingVertical:15,
     }
 })

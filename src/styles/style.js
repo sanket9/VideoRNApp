@@ -8,7 +8,7 @@ module.exports = StyleSheet.create({
     header: {
         paddingVertical: 15, width: '100%',
         paddingHorizontal: 25, borderBottomColor: '#979797', 
-        borderBottomWidth: 1, flexDirection: 'row',
+        borderBottomWidth: 1, flexDirection: 'row',alignItems: 'center', justifyContent: 'center'
     },
     headerTextContainer: {alignItems: 'center', width: '100%', justifyContent: 'center'},
     contentMainText : {
@@ -31,9 +31,19 @@ module.exports = StyleSheet.create({
     },
     input: {
         flex: 1,
-        fontFamily: 'Poppins-Bold',
+        fontFamily: 'Poppins-Regular',
+        fontWeight: '700',
         fontSize: 28,
         height: 68,
+    },
+    inputMask: {
+        flex: 1,
+        fontFamily: 'Poppins-Regular',
+        fontWeight: '700',
+        fontSize: 28,
+        height: 68,
+        borderBottomColor: '#d1d1d1',
+        borderBottomWidth: 1
     },
     inputNote: {
         fontFamily: "Poppins-Regular",

@@ -121,11 +121,12 @@ const Record = () => {
 
 const StopRecording =() => {
     return(
-        <Svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <Svg width="75px" height="75px" viewBox="0 0 75 75" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
             <G id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <G id="Recording2" transform="translate(-194.000000, -797.000000)" fill="#FF2650">
+                <G id="Recording2" transform="translate(-169.000000, -771.000000)" fill="#FF2650">
                     <G id="Group-3" transform="translate(169.000000, 771.000000)">
+                        <Path d="M37.5,75 C16.7893219,75 0,58.2106781 0,37.5 C0,16.7893219 16.7893219,0 37.5,0 C58.2106781,0 75,16.7893219 75,37.5 C75,58.2106781 58.2106781,75 37.5,75 Z M37.5,68.3823529 C54.5558526,68.3823529 68.3823529,54.5558526 68.3823529,37.5 C68.3823529,20.4441474 54.5558526,6.61764706 37.5,6.61764706 C20.4441474,6.61764706 6.61764706,20.4441474 6.61764706,37.5 C6.61764706,54.5558526 20.4441474,68.3823529 37.5,68.3823529 Z" id="Combined-Shape" opacity="0.800000012"></Path>
                         <Rect id="Rectangle" x="25.3676471" y="26.4705882" width="24.2647059" height="24.2647059" rx="4.4000001"></Rect>
                     </G>
                 </G>
