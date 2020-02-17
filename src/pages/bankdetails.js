@@ -9,16 +9,21 @@ import {
   Picker,
 } from 'react-native';
 import {TextInputMask} from 'react-native-masked-text';
-
 var styles = require('../styles/style');
 import Header from '../component/header';
+import axios from 'axios';
 
 export default class bankdetails extends Component {
   constructor() {
     super();
     this.state = {
       ifsc: '',
+      creditCard: '',
     };
+  }
+
+  componentDidMount() {
+    console.log(this.props.route.params);
   }
 
   renderHeader = () => {
@@ -29,6 +34,25 @@ export default class bankdetails extends Component {
         onPress={() => this.props.navigation.goBack()}
       />
     );
+  };
+
+  submitDetails = () => {
+    // this.props.navigation.navigate('List')
+
+    let {ctc, consultationFee} = this.props.route.params;
+    axios
+      .post(
+        'http://ec2-3-6-243-138.ap-south-1.compute.amazonaws.com:3000/api/mentor/bank-details/update',
+        {
+          mentorId: '5e42592bf7cc1610e12be2fe',
+          ifscCode: JSON.stringify(this.state.ifscCode),
+          accountNumber: JSON.stringify(this.state.creditCard),
+          currentCtc: JSON.stringify(ctc),
+          fees: JSON.stringify(consultationFee),
+        },
+      )
+      .then(data => console.log(data, 'in submit details'))
+      .catch(e => console.log(e, 'err'));
   };
   render() {
     let disableBtn = this.state.ifsc == '' ? true : false;
@@ -105,7 +129,7 @@ export default class bankdetails extends Component {
           <TouchableOpacity
             style={[styles.footerBtn, disableBtn ? styles.disabled : null]}
             // disabled={disableBtn}
-            onPress={() => this.props.navigation.navigate('List')}>
+            onPress={() => this.submitDetails()}>
             <Text
               style={{
                 textAlign: 'center',

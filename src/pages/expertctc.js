@@ -21,6 +21,7 @@ export default class expertctc extends Component {
     super();
     this.state = {
       consultationFee: '',
+      ctc: '',
       enableCtc: true,
     };
   }
@@ -40,7 +41,12 @@ export default class expertctc extends Component {
   };
 
   submitDetails = () => {
-    this.props.navigation.navigate('BankDetails');
+    console.log(this.state.ctc, this.state.consultationFee);
+
+    this.props.navigation.navigate('BankDetails', {
+      ctc: this.state.ctc,
+      consultationFee: this.state.consultationFee,
+    });
     // axios
     //   .post(
     //     'http://ec2-3-6-243-138.ap-south-1.compute.amazonaws.com:3000/api/mentor/bank-details/update',
