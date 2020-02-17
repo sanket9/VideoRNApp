@@ -22,6 +22,7 @@ var styles = require('../styles/style');
 
 import ScriptText from '../component/scriptText';
 import CameraHeader from '../component/cameraHeader';
+import axios from 'axios';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -47,7 +48,7 @@ export default class camera extends Component {
       recording: false,
       path: '',
       stopRecording: false,
-      cameraType: 'front',
+      cameraType: 'back',
       playing: false,
       showScriptModal: false,
       scripttext: '',
@@ -158,24 +159,20 @@ export default class camera extends Component {
       const inbox = split.pop();
       const realPath = `${RNFS.TemporaryDirectoryPath}/${inbox}/${name}`;
       // console.log(RNFS.ExternalDirectoryPath);
+      let time = Date.now() / 1000;
       RNFS.exists(`/storage/emulated/0/VideoApp`).then(async isExist => {
         if (isExist) {
-          RNFS.moveFile(
-            realPath,
-            `/storage/emulated/0/VideoApp/${Date.now() / 1000}.mp4`,
-          );
+          RNFS.moveFile(realPath, `/storage/emulated/0/VideoApp/${time}.mp4`);
           ToastAndroid.show('File Saved.', ToastAndroid.SHORT);
-          await AsyncStorage.setItem('@local_indx', (value + 1).toString());
-          this.props.navigation.navigate('List');
+          this.saveVideotoServer(url, time);
+          // this.props.navigation.navigate('List');
         } else {
           RNFS.mkdir(`/storage/emulated/0/VideoApp`).then(async data => {
-            RNFS.moveFile(
-              realPath,
-              `/storage/emulated/0/VideoApp/${Date.now() / 1000}.mp4`,
-            );
+            RNFS.moveFile(realPath, `/storage/emulated/0/VideoApp/${time}.mp4`);
             ToastAndroid.show('File Saved.', ToastAndroid.SHORT);
-            await AsyncStorage.setItem('@local_indx', (value + 1).toString());
-            this.props.navigation.navigate('List');
+            // await AsyncStorage.setItem('@local_indx', (value + 1).toString());
+            this.saveVideotoServer(url, time);
+            // this.props.navigation.navigate('List');
           });
         }
       });
@@ -196,18 +193,46 @@ export default class camera extends Component {
   componentDidMount() {
     const {route} = this.props;
     let data = JSON.parse(route.params.data);
-
-    if (data.id <= 9) {
+    // console.log('>>>>', data);
+    this.setState({
+      paramData: data,
+    });
+    if (data.sequence <= 9) {
       this.setState({
-        headerText: data.title,
-        scripttext: data.scriptText,
+        headerText: data.question,
+        scripttext: data.answer,
       });
-    } else if (data.id > 9) {
+    } else if (data.sequence > 9) {
       this.setState({
         headermodal: true,
         scripttext: data.scriptText,
       });
     }
+  }
+
+  saveVideotoServer(realPath, name) {
+    let apiData = new FormData();
+    const file = {
+      uri: realPath,
+      name: `${name}`,
+      type: 'video/mp4',
+    };
+    console.log('file', file);
+
+    apiData.append('draftVideoId', `${this.state.paramData._id}`);
+    apiData.append('videoId', '');
+    apiData.append('experienceTypeId', '5e47b52adcd19404cd5965e4');
+    apiData.append('video', file);
+    axios({
+      method: 'post',
+      url:
+        'http://ec2-3-6-243-138.ap-south-1.compute.amazonaws.com:3000/api/service/upload-video',
+      data: apiData,
+      headers: {'Content-Type': 'multipart/form-data'},
+    }).then(data => {
+      console.log('data', data);
+      this.props.navigation.goBack();
+    });
   }
 
   cameraHeader = () => {
@@ -289,7 +314,7 @@ export default class camera extends Component {
                   <Play />
               </TouchableOpacity> */}
 
-            {this.stopRecording()}
+            {this.stopRecordingContent()}
           </>
         ) : (
           <>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+// import {  } from 'react-native-gesture-handler';
 export default class FlatListRow extends Component {
   render() {
     const textColor =
@@ -66,9 +67,12 @@ export default class FlatListRow extends Component {
               />
             </View>
           ) : (
-            <View
+            <TouchableOpacity
+              onPress={this.props.onPress}
               style={{
                 alignItems: 'flex-end',
+                padding: 5,
+                // borderWidth: 1,
               }}>
               <Icon
                 name="video"
@@ -78,7 +82,7 @@ export default class FlatListRow extends Component {
                   marginRight: 10,
                 }}
               />
-            </View>
+            </TouchableOpacity>
           )}
         </View>
       </View>
