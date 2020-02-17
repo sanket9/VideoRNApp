@@ -12,27 +12,15 @@ import isEmpty from './src/utility/isEmpty';
 export default class App extends Component {
   constructor() {
     super();
-  }
 
-  componentDidMount() {
+    this.state = {
+      apiData: null,
+      modalData: [],
+    };
     const token =
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMjE4NzdjMWI4ZWViMjc2ZGQ3MzZmYyIsImlhdCI6MTU3OTc2NDc5MiwiZXhwIjoxNjExMzAwNzkyfQ.Dq5eNKFtFpOtlz-yDeONauWFXa85JQ95lfJcHv25ti0';
     axios.defaults.headers.common['Authorization'] = token;
-
-    this.fetchData();
   }
-
-  fetchData = () => {
-    axios
-      .post(
-        'http://ec2-3-6-243-138.ap-south-1.compute.amazonaws.com:3000/api/user/profile/details',
-        {
-          mentorId: '5e298d3fbacbc44045008971',
-        },
-      )
-      .then(data => console.log(data.data))
-      .catch(e => console.log(e));
-  };
 
   render() {
     const Stack = createStackNavigator();
