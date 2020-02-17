@@ -1,82 +1,231 @@
-import React, { Component } from 'react'
-import { StyleSheet  } from 'react-native'
+import React, {Component} from 'react';
+import {StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
-    container: {
-        flex:1
+  container: {
+    flex: 1,
+  },
+  header: {
+    paddingVertical: 15,
+    width: '100%',
+    paddingHorizontal: 25,
+    borderBottomColor: '#979797',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTextContainer: {
+    alignItems: 'center',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  contentMainText: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 22,
+    fontWeight: '800',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+  },
+  searchSection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#d1d1d1',
+    paddingLeft: 7,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    fontFamily: 'Poppins-Regular',
+    fontWeight: '700',
+    fontSize: 28,
+    height: 68,
+  },
+  inputMask: {
+    flex: 1,
+    fontFamily: 'Poppins-Regular',
+    fontWeight: '700',
+    fontSize: 28,
+    height: 68,
+    borderBottomColor: '#d1d1d1',
+    borderBottomWidth: 1,
+  },
+  inputNote: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#666666',
+  },
+  pickerStyle: {
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#3280dc',
+    width: 100,
+    borderRadius: 24,
+    shadowColor: 'rgba(0, 0, 0, 0.14)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    header: {
-        paddingVertical: 15, width: '100%',
-        paddingHorizontal: 25, borderBottomColor: '#979797', 
-        borderBottomWidth: 1, flexDirection: 'row',alignItems: 'center', justifyContent: 'center'
-    },
-    headerTextContainer: {alignItems: 'center', width: '100%', justifyContent: 'center'},
-    contentMainText : {
-        fontFamily: "Poppins-Bold",
-        fontSize: 22,
-        fontWeight: "800",
-        fontStyle: "normal",
-        letterSpacing: 0,
-    },
-    searchSection: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#d1d1d1',
-        paddingLeft: 7
-    },
-    searchIcon: {
-        marginRight: 10
-    },
-    input: {
-        flex: 1,
-        fontFamily: 'Poppins-Regular',
-        fontWeight: '700',
-        fontSize: 28,
-        height: 68,
-    },
-    inputMask: {
-        flex: 1,
-        fontFamily: 'Poppins-Regular',
-        fontWeight: '700',
-        fontSize: 28,
-        height: 68,
-        borderBottomColor: '#d1d1d1',
-        borderBottomWidth: 1
-    },
-    inputNote: {
-        fontFamily: "Poppins-Regular",
-        fontSize: 12,
-        fontWeight: "500",
-        color: "#666666"
-    },
-    pickerStyle: {marginTop: 10, borderWidth: 1, 
-        borderColor: '#3280dc',
-        width: 100, borderRadius:24,
-        shadowColor: "rgba(0, 0, 0, 0.14)",
-        shadowOffset: {
-        width: 0,
-        height: 2
-        },
-        shadowRadius: 4
-    },
-    footerBtn: {
-        width: '97%', height: 54,borderRadius: 15, backgroundColor: '#3280dc', justifyContent: 'center'
-    },
-    disabled: {
-        opacity: 0.3
-    },
-    expertBtn: {
-        width: '70%', backgroundColor:'#3280dc', borderWidth: 1, borderColor: '#3280dc', borderRadius: 8, padding: 12
-    },
-    modalheading: {
-        fontFamily: "Poppins-Bold", fontSize: 24, fontWeight: "800",
-    },
-    modalcontainer:{
-        height: '60%', borderTopLeftRadius: 36, borderTopRightRadius: 36, 
-                    backgroundColor: "#f7f6f6", paddingHorizontal: 30, paddingVertical: 29 
-    }
-})
+    shadowRadius: 4,
+  },
+  footerBtn: {
+    width: '97%',
+    height: 54,
+    borderRadius: 15,
+    backgroundColor: '#3280dc',
+    justifyContent: 'center',
+  },
+  disabled: {
+    opacity: 0.3,
+  },
+  expertBtn: {
+    width: '70%',
+    backgroundColor: '#3280dc',
+    borderWidth: 1,
+    borderColor: '#3280dc',
+    borderRadius: 8,
+    padding: 12,
+  },
+  modalheading: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 24,
+    fontWeight: '800',
+  },
+  modalcontainer: {
+    height: '60%',
+    borderTopLeftRadius: 36,
+    borderTopRightRadius: 36,
+    backgroundColor: '#f7f6f6',
+    paddingHorizontal: 30,
+    paddingVertical: 29,
+  },
+
+  firstcontainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 15,
+    paddingVertical: 10,
+    marginBottom: 0,
+  },
+  textcontainer: {
+    marginLeft: 8,
+    paddingVertical: 10,
+    fontFamily: 'Poppins-Regular',
+  },
+  bottomcontainer: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginTop: '6%',
+    overflow: 'hidden',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  capture: {
+    position: 'absolute',
+    // backgroundColor: '#fff',
+    borderRadius: 50,
+    // borderWidth: 4,
+    // borderColor: '#ff2650',
+    alignSelf: 'center',
+    margin: 20,
+    bottom: 10,
+  },
+  captureOk: {
+    position: 'absolute',
+    backgroundColor: '#3280dc',
+    borderRadius: 50,
+    borderWidth: 4,
+    borderColor: '#3280dc',
+    alignSelf: 'center',
+    margin: 20,
+    bottom: 10,
+  },
+  scriptclass: {
+    position: 'absolute',
+    backgroundColor: '#11141c',
+    borderRadius: 50,
+    borderWidth: 4,
+    flexDirection: 'row',
+    borderRadius: 15,
+    paddingHorizontal: 2,
+    paddingVertical: 5,
+    borderColor: '#11141c',
+    alignSelf: 'center',
+    margin: 20,
+    bottom: 95,
+  },
+  rightbutton: {
+    flexDirection: 'column',
+    position: 'absolute',
+    bottom: 35,
+    right: '20%',
+  },
+  leftbutton: {
+    flexDirection: 'column',
+    position: 'absolute',
+    bottom: 35,
+    left: '20%',
+  },
+  buttontext: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 10,
+    fontStyle: 'normal',
+    color: '#fff',
+    textAlign: 'center',
+  },
+  scriptVideobutton: {
+    flex: 0,
+    flexDirection: 'row',
+    padding: 3,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#3280dc',
+    height: 48,
+    marginBottom: 15,
+  },
+  modalContainer: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 20,
+  },
+  questionmodal: {
+    height: '110%',
+    width: '120%',
+    marginLeft: '-5%',
+    fontFamily: 'Poppins-Regular',
+    backgroundColor: '#fff',
+  },
+  questionmodalbtn: {
+    flexDirection: 'row',
+    padding: 3,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '80%',
+    backgroundColor: '#3280dc',
+    height: 48,
+  },
+  headerText: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 18,
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    color: '#ffffff',
+  },
+});
 
 // export default styles;
