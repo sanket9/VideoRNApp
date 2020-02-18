@@ -17,8 +17,9 @@ import axios from 'axios';
 // import footerBtn from "../component/footerBtn";
 
 export default class expertctc extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       consultationFee: '',
       ctc: '',
@@ -62,6 +63,7 @@ export default class expertctc extends Component {
 
   render() {
     let disableBtn = this.state.consultationFee == '' ? true : false;
+    // console.log('tt', this.toolTip);
 
     return (
       <View style={styles.container}>
@@ -91,7 +93,7 @@ export default class expertctc extends Component {
                   justifyContent: 'space-between',
                   backgroundColor: 'rgba(0,0,0,0.1)',
                   paddingVertical: 10,
-                  paddingHorizontal: 15,
+                  paddingHorizontal: 20,
                 }}>
                 <Text
                   style={{
@@ -111,7 +113,10 @@ export default class expertctc extends Component {
                 <View
                   style={[
                     styles.searchSection,
-                    {paddingLeft: 15, paddingRight: 15, marginTop: 10},
+                    {
+                      marginTop: 10,
+                      marginHorizontal: 15,
+                    },
                   ]}>
                   <IonIcon
                     style={styles.searchIcon}
@@ -134,41 +139,75 @@ export default class expertctc extends Component {
                 </View>
               )}
             </View>
-            <View style={{marginTop: 20}}>
-              <View style={{flexDirection: 'row'}}>
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-Bold',
-                    fontSize: 18,
-                    fontWeight: '500',
-                    fontStyle: 'normal',
-                    paddingHorizontal: 15,
-                  }}>
-                  Enter your consultation fee
-                </Text>
-              </View>
+          </View>
+          <View
+            style={{
+              marginTop: 20,
+              height: 200,
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Bold',
+                  fontSize: 18,
+                  fontWeight: '500',
+                  fontStyle: 'normal',
+                  paddingHorizontal: 20,
+                }}>
+                Enter your consultation fee
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.searchSection,
+                {
+                  position: 'relative',
+                  marginHorizontal: 15,
+                },
+              ]}>
+              <IonIcon
+                style={styles.searchIcon}
+                name="ios-search"
+                size={40}
+                color="#000"
+              />
+              <TextInput
+                keyboardType="numeric"
+                style={styles.input}
+                placeholder="000"
+                onChangeText={text => {
+                  this.setState({consultationFee: text});
+                }}
+                // underlineColorAndroid="transparent"
+              />
+              <Text style={styles.inputNote}>Per Annum</Text>
+            </View>
+            <View
+              style={{
+                position: 'absolute',
+                top: 110,
+                left: '10%',
+                padding: 10,
+                backgroundColor: '#00cd9f',
+                borderRadius: 4,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+                width: '80%',
+              }}>
               <View
-                style={[
-                  styles.searchSection,
-                  {paddingLeft: 15, paddingRight: 15},
-                ]}>
-                <IonIcon
-                  style={styles.searchIcon}
-                  name="ios-search"
-                  size={40}
-                  color="#000"
-                />
-                <TextInput
-                  keyboardType="numeric"
-                  style={styles.input}
-                  placeholder="000"
-                  onChangeText={text => {
-                    this.setState({consultationFee: text});
-                  }}
-                  // underlineColorAndroid="transparent"
-                />
-                <Text style={styles.inputNote}>Per Annum</Text>
-              </View>
+                style={{
+                  height: 30,
+                  width: 30,
+                  backgroundColor: '#00cd9f',
+                  position: 'absolute',
+                  top: -10,
+                  transform: [{rotateX: '45deg'}, {rotateZ: '0.785398rad'}],
+                }}
+              />
+              <Text style={{color: 'white'}}>
+                Suggestive Hourly fee Rs 520 - Rs 750
+              </Text>
             </View>
           </View>
         </ScrollView>
